@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@vk-io/hear": "^1.1.0",
+    "net": "^1.0.2",
     "vk-io": "^4.4.0"
   }
 }

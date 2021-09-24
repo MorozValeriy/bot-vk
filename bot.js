@@ -1,12 +1,9 @@
 const { VK } = require('vk-io')
 const  { HearManager } = require('@vk-io/hear')
-const { server } = require('net')
 
 const vk = new VK({
     token: 'e9a0f2123ef150e8ded81a3073520e045931c3c4d4ac55794c67085e874ad9cd3cace2e4f958a6127d47e'
 })
-
-server.listen(process.env.PORT || 5000);
 
 const bot = new HearManager()
 let count = 0;

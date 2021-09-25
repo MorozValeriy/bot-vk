@@ -12,11 +12,11 @@ let count = 0;
 
 vk.updates.on('message_new', bot.middleware)
 
-bot.hear('привет', msg => {
-    msg.send('левик пидор')
+bot.hear(/привет/i, msg => {
+    msg.send('вас никто не слышит')
 })
 
-bot.hear('пидарас', msg => {
+bot.hear(/пидарас/i, msg => {
     msg.send('что?')
 })
 
@@ -24,9 +24,11 @@ count = 1;
 let messages = [];
 
 bot.onFallback(msg => {
-    messages.push(msg.text);
+    if (msg.text !== undefined) {
+        messages.push(msg.text);
+    }
 
-    if (count === Math.floor(Math.random() * 3)) {
+    if (count === Math.floor(Math.random() * 4)) {
         msg.send(random(messages.length - 1));
     }
 })

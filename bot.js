@@ -1,5 +1,7 @@
 const { VK } = require('vk-io')
 const  { HearManager } = require('@vk-io/hear')
+const express = require('express');
+const app = express();
 
 const vk = new VK({
     token: 'e9a0f2123ef150e8ded81a3073520e045931c3c4d4ac55794c67085e874ad9cd3cace2e4f958a6127d47e'
@@ -24,7 +26,7 @@ let messages = [];
 bot.onFallback(msg => {
     messages.push(msg.text);
 
-    if (count === Math.floor(Math.random() * 2)) {
+    if (count === Math.floor(Math.random() * 3)) {
         msg.send(random(messages.length - 1));
     }
 })
@@ -39,6 +41,10 @@ function random(max){
     }
     return string;
 }
+
+app.listen(process.env.PORT || 5000 ,function(){
+    console.log("up and running on port "+process.env.PORT);
+});
 
 console.log('Бот запущен');
 vk.updates.start().catch(console.error)

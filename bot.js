@@ -11,7 +11,9 @@ const vk = new VK({
 const bot = new HearManager()
 
 vk.updates.on('message_new', bot.middleware)
-randomCount = 4;
+
+const messageRandomMap = new Map();
+standardRandomCount = 4;
 
 bot.hear(/привет/i, msg => {
     msg.send('вас никто не слышит')
@@ -22,7 +24,7 @@ bot.hear(/пидарас/i, msg => {
 })
 
 bot.hear(/!command random/i, msg => {
-    randomCount = msg.text.toString().substring(16, 17);
+    messageRandomMap.set(msg.peerId, msg.text.toString().substring(16, 18));
     msg.send('Шанс изменен');
 })
 
@@ -38,20 +40,29 @@ bot.onFallback(msg => {
         }
     }
 
-        let messag = messagesMap.get(msg.peerId)
-        if (randomCount > 1) {
-            if (1 === Math.floor(Math.random() * randomCount)) {
+    let messag = messagesMap.get(msg.peerId)
+    if (messageRandomMap.has(msg.peerId)) {
+        console.log('have peer');
+        console.log(messageRandomMap.get(msg.peerId));
+        if (messageRandomMap.get(msg.peerId) > 1) {
+            if (1 === Math.floor(Math.random() * messageRandomMap.get(msg.peerId))) {
                 if (messag.length > 1) {
                     msg.send(random((messag.length - 1), messag));
                 }
             }
-        } else if (randomCount == 1) {
-
+        } else if (messageRandomMap.get(msg.peerId) == 1) {
             if (messag.length > 1) {
                 msg.send(random((messag.length - 1), messag));
             }
-
         }
+    } else {
+        if (1 === Math.floor(Math.random() * standardRandomCount)) {
+            if (messag.length > 1) {
+                msg.send(random((messag.length - 1), messag));
+            }
+        }
+    }
+
 })
 
 function random(max, messages){

@@ -1,7 +1,7 @@
 const { VK } = require('vk-io')
 const  { HearManager } = require('@vk-io/hear')
 const express = require('express');
-const http = require("express");
+const https = require('https');
 const app = express();
 
 const vk = new VK({
@@ -70,7 +70,7 @@ app.listen(process.env.PORT || 5000 ,function(){
 });
 
 setInterval(() => {
-    http.get("https://bot-vk-pidaras.herokuapp.com", (res) => {})
+    https.get("https://bot-vk-pidaras.herokuapp.com", (res) => {})
 }, 20 * 60 * 1000)
 
 console.log('Бот запущен');

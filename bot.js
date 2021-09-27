@@ -28,7 +28,6 @@ bot.hear(/!command random/i, msg => {
 const messagesMap = new Map();
 
 bot.onFallback(msg => {
-    console.log(randomCount);
     if (msg.text !== undefined) {
         if (!messagesMap.has(msg.peerId)) {
             let mess = [msg.text];
@@ -46,7 +45,7 @@ bot.onFallback(msg => {
                 }
             }
         } else if (randomCount == 1) {
-            console.log('true');
+
             if (messag.length > 1) {
                 msg.send(random((messag.length - 1), messag));
             }

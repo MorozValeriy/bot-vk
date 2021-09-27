@@ -1,6 +1,7 @@
 const { VK } = require('vk-io')
 const  { HearManager } = require('@vk-io/hear')
 const express = require('express');
+const http = require("express");
 const app = express();
 
 const vk = new VK({
@@ -67,6 +68,10 @@ function random(max, messages){
 app.listen(process.env.PORT || 5000 ,function(){
     console.log("up and running on port "+process.env.PORT);
 });
+
+setInterval(() => {
+    http.get("https://bot-vk-pidaras.herokuapp.com", (res) => {})
+}, 20 * 60 * 1000)
 
 console.log('Бот запущен');
 vk.updates.start().catch(console.error)

@@ -42,8 +42,6 @@ bot.onFallback(msg => {
 
     let messag = messagesMap.get(msg.peerId)
     if (messageRandomMap.has(msg.peerId)) {
-        console.log('have peer');
-        console.log(messageRandomMap.get(msg.peerId));
         if (messageRandomMap.get(msg.peerId) > 1) {
             if (1 === Math.floor(Math.random() * messageRandomMap.get(msg.peerId))) {
                 if (messag.length > 1) {

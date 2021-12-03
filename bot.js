@@ -82,7 +82,7 @@ app.listen(process.env.PORT || 5000 ,function(){
 });
 
 setInterval(() => {
-    https.get("https://bot-vk-pidaras.herokuapp.com", (res) => {})
+    https.get("https://aaalllllllll.herokuapp.com", (res) => {})
 }, 20 * 60 * 1000)
 
 console.log('Бот запущен');

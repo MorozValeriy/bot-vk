@@ -5,74 +5,77 @@ const https = require('https');
 const app = express();
 
 const vk = new VK({
-    token: 'e9a0f2123ef150e8ded81a3073520e045931c3c4d4ac55794c67085e874ad9cd3cace2e4f958a6127d47e'
+    token: '5a9ea9fa2f32bf789c30ddfce9a38697067423c97c68c21fd8f3a6d60a946f220af3b3b5c505b79215cc4'
 })
 
 const bot = new HearManager()
 
 vk.updates.on('message_new', bot.middleware)
 
-const messageRandomMap = new Map();
-standardRandomCount = 4;
+const socpointMap = new Map();
+socpointMap.set('Саня', 100);
+socpointMap.set('Влад', 100);
+socpointMap.set('Левик', 100);
+socpointMap.set('Валера', 100);
 
-bot.hear(/привет/i, msg => {
-    msg.send('вас никто не слышит')
+
+
+bot.hear(/статистика/i, msg => {
+    msg.send('Саня' + ': ' + socpointMap.get('Саня') + ' соцпоинтов');
+    msg.send('Влад' + ': ' + socpointMap.get('Влад') + ' соцпоинтов');
+    msg.send('Левик' + ': ' + socpointMap.get('Левик') + ' соцпоинтов');
+    msg.send('Валера' + ': ' + socpointMap.get('Валера') + ' соцпоинтов');
+
 })
-
-bot.hear(/пидарас/i, msg => {
-    msg.send('что?')
-})
-
-bot.hear(/!command random/i, msg => {
-    messageRandomMap.set(msg.peerId, msg.text.toString().substring(16, 18));
-    msg.send('Шанс изменен');
-})
-
-const messagesMap = new Map();
-
-bot.onFallback(msg => {
-    if (msg.text !== undefined) {
-        if (!messagesMap.has(msg.peerId)) {
-            let mess = [msg.text];
-            messagesMap.set(msg.peerId, mess);
-        } else {
-            messagesMap.get(msg.peerId).push(msg.text);
+bot.hear(/соцпоинт/i, msg => {
+    if (msg.text.includes('-')) {
+        socpoints = msg.text.charAt(1) + msg.text.charAt(2);
+        if (msg.text.includes('Сане')) {
+            minusSocpoint('Саня', socpoints, false);
+            msg.send('Саня' + ': ' + socpointMap.get('Саня') + ' соцпоинтов');
+        }
+        if (msg.text.includes('Владу')) {
+            minusSocpoint('Влад', socpoints, false);
+            msg.send('Влад' + ': ' + socpointMap.get('Влад') + ' соцпоинтов');
+        }
+        if (msg.text.includes('Левику')) {
+            minusSocpoint('Левик', socpoints, false);
+            msg.send('Левик' + ': ' + socpointMap.get('Левик') + ' соцпоинтов');
+        }
+        if (msg.text.includes('Валере')) {
+            minusSocpoint('Валера', socpoints, false);
+            msg.send('Валера' + ': ' + socpointMap.get('Валера') + ' соцпоинтов');
+        }
+    } else if (msg.text.includes('+')) {
+        socpoints = msg.text.charAt(1) + msg.text.charAt(2);
+        if (msg.text.includes('Сане')) {
+            minusSocpoint('Саня', socpoints, true);
+            msg.send('Саня' + ': ' + socpointMap.get('Саня') + ' соцпоинтов');
+        }
+        if (msg.text.includes('Владу')) {
+            minusSocpoint('Влад', socpoints, true);
+            msg.send('Влад' + ': ' + socpointMap.get('Влад') + ' соцпоинтов');
+        }
+        if (msg.text.includes('Левику')) {
+            minusSocpoint('Левик', socpoints, true);
+            msg.send('Левик' + ': ' + socpointMap.get('Левик') + ' соцпоинтов');
+        }
+        if (msg.text.includes('Валере')) {
+            minusSocpoint('Валера', socpoints, true);
+            msg.send('Валера' + ': ' + socpointMap.get('Валера') + ' соцпоинтов');
         }
     }
 
-    let messag = messagesMap.get(msg.peerId)
-    if (messageRandomMap.has(msg.peerId)) {
-        if (messageRandomMap.get(msg.peerId) > 1) {
-            if (1 === Math.floor(Math.random() * messageRandomMap.get(msg.peerId))) {
-                if (messag.length > 1) {
-                    msg.send(random((messag.length - 1), messag));
-                }
-            }
-        } else if (messageRandomMap.get(msg.peerId) == 1) {
-            if (messag.length > 1) {
-                msg.send(random((messag.length - 1), messag));
-            }
-        }
+})
+
+function minusSocpoint(name, socpoints, plus) {
+    if (plus) {
+        socpointMap.set(name, socpointMap.get(name) + socpoints)
     } else {
-        if (1 === Math.floor(Math.random() * standardRandomCount)) {
-            if (messag.length > 1) {
-                msg.send(random((messag.length - 1), messag));
-            }
-        }
+        socpointMap.set(name, socpointMap.get(name) - socpoints)
     }
-
-})
-
-function random(max, messages){
-    let string = '';
-    for (let i = 0; i < Math.floor(Math.random() * 5); i++) {
-        string = string + ' ' + messages[Math.floor(Math.random() * max)];
-    }
-    if (string.length === 0) {
-        string = messages[Math.floor(Math.random() * max)];
-    }
-    return string;
 }
+
 
 app.listen(process.env.PORT || 5000 ,function(){
     console.log("up and running on port "+process.env.PORT);

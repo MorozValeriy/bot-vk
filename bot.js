@@ -70,7 +70,7 @@ bot.hear(/виновен/i, msg11 => {
         if (votingMap.get(msg11.senderId) === null) {
             if (msg11.text === 'Виновен' || msg11.text === 'виновен') {
                 votingMap.set(msg11.senderId, true);
-            } else if (msg11.text === 'Не виновен' && msg11.text === 'не виновен') {
+            } else if (msg11.text === 'Не виновен' || msg11.text === 'не виновен') {
                 votingMap.set(msg11.senderId, false);
             }
         } else {

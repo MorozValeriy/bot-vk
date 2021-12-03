@@ -13,7 +13,7 @@ const bot = new HearManager()
 vk.updates.on('message_new', bot.middleware)
 
 const socpointMap = new Map();
-socpointMap.set('Саня', 100);
+socpointMap.set('Саня', 90);
 socpointMap.set('Влад', 100);
 socpointMap.set('Левик', 100);
 socpointMap.set('Валера', 100);

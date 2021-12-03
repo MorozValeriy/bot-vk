@@ -112,7 +112,7 @@ bot.hear(/соцпоинт/i, msg => {
         socpointsList = msg.text.split(' ');
         isVotingExist = true;
 
-        if (msg.text.includes('Сане')) {
+        if (msg.text.includes('Сан')) {
             name = 'Саня';
             socpoints = socpointsList[0];
             filtered = votingMassive.filter(function(value, index, arr){
@@ -124,7 +124,7 @@ bot.hear(/соцпоинт/i, msg => {
                 votingMap.set(parseInt(item), null);
             })
         }
-        if (msg.text.includes('Владу')) {
+        if (msg.text.includes('Влад')) {
             name = 'Влад';
             socpoints = socpointsList[0];
 
@@ -137,7 +137,7 @@ bot.hear(/соцпоинт/i, msg => {
                 votingMap.set(parseInt(item), null);
             })
         }
-        if (msg.text.includes('Левику')) {
+        if (msg.text.includes('Левик')) {
             name = 'Левик';
             socpoints = socpointsList[0];
 
@@ -150,7 +150,7 @@ bot.hear(/соцпоинт/i, msg => {
                 votingMap.set(parseInt(item), null);
             })
         }
-        if (msg.text.includes('Валере')) {
+        if (msg.text.includes('Валер')) {
             name = 'Валера';
             socpoints = socpointsList[0];
 
@@ -163,6 +163,7 @@ bot.hear(/соцпоинт/i, msg => {
                 votingMap.set(parseInt(item), null);
             })
         }
+        isVotingExist = false;
     } else {
         msg.send('Идет голосование');
     }

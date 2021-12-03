@@ -101,7 +101,7 @@ bot.hear(/виновен/i, msg11 => {
             falseCount = 0;
            count1 = 0;
            isVotingExist = false;
-           votingMap.clear();
+           votingMap = new Map();
         }
     }
 })
